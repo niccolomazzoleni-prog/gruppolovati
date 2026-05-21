@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Olltre - Pizza alla pala a San Zeno, Verona</title>
+<meta name="description" content="Olltre, pizzeria alla pala a San Zeno, Verona. Pizza ad alta idratazione, ingredienti locali, esperienza che racconta l'Italia." />
+
+<link rel="icon" type="image/png" href="assets/logo-badge.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #14110D;
+    --bg-2: #1C1814;
+    --bg-3: #221D17;
+    --cream: #F4E9C8;
+    --cream-dim: rgba(244, 233, 200, 0.72);
+    --cream-faint: rgba(244, 233, 200, 0.45);
+    --gold: #C9A66B;
+    --gold-deep: #8E6F3E;
+    --olive: #6F7142;
+    --line: rgba(244, 233, 200, 0.14);
+    --line-strong: rgba(244, 233, 200, 0.28);
+    --error: #C97A6B;
+    --font-script: 'Petit Formal Script', cursive;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-caps: 'Bebas Neue', sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  ::selection { background: var(--gold); color: var(--bg); }
+
+  /* ============ ANNOUNCEMENT BAR ============ */
+  .announce {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 110;
+    background: var(--gold);
+    color: var(--bg);
+    text-align: center;
+    padding: 13px 24px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+  .announce a { display: inline-block; }
+  .announce .ann-sep { margin: 0 12px; opacity: 0.5; }
+
+  /* ============ NAVBAR ============ */
+  .nav {
+    position: fixed;
+    top: 50px; left: 0; right: 0;
+    z-index: 100;
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(20, 17, 13, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--line);
+    padding: 10px 36px;
+  }
+  .nav.scrolled .nav-logo img { height: 110px; }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo img { height: 144px; width: auto; transition: height 0.3s ease; }
+  .nav-cta {
+    display: inline-block;
+    border: 1px solid var(--cream);
+    color: var(--cream);
+    font-family: var(--font-caps);
+    font-size: 15px;
+    letter-spacing: 0.26em;
+    padding: 12px 26px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .nav-cta:hover { background: var(--cream); color: var(--bg); }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 50px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 80px 24px 90px;
+    margin-top: 50px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('assets/hero-1.jpeg') center/cover no-repeat;
+    transform: scale(1.05);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(20,17,13,0.55) 0%, rgba(20,17,13,0.4) 40%, rgba(20,17,13,0.9) 100%),
+      radial-gradient(ellipse at center, transparent 0%, rgba(20,17,13,0.55) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+  }
+  .hero-logo {
+    width: 220px;
+    margin: 0 auto 14px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.2s;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-caps);
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 0.45em;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.4s;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.55s;
+  }
+  .hero-title em { font-family: var(--font-script); color: var(--gold); font-style: normal; font-size: 1.2em; }
+  .hero-sub {
+    color: var(--cream-dim);
+    font-size: 17px;
+    max-width: 520px;
+    margin: 0 auto 26px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.7s;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--cream);
+    color: var(--bg);
+    font-family: var(--font-caps);
+    font-size: 17px;
+    letter-spacing: 0.3em;
+    padding: 20px 44px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.85s;
+  }
+  .hero-cta:hover { background: var(--gold); transform: translateY(-2px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 120px 24px; position: relative; }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+  .wrap-narrow { max-width: 860px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: var(--font-caps);
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    margin-bottom: 18px;
+  }
+  .h-section {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.08;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .h-section .script { font-family: var(--font-script); color: var(--gold); font-style: normal; }
+
+  /* ============ LA NOSTRA PIZZA (split) ============ */
+  .pizza-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .pizza-split .col-img {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+  .pizza-split .col-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  .pizza-split:hover .col-img img { transform: scale(1.04); }
+  .pizza-split .col-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+  .pizza-text p {
+    color: var(--cream-dim);
+    font-size: 17px;
+    line-height: 1.85;
+    margin-bottom: 22px;
+  }
+  .pizza-text p:first-of-type::first-letter {
+    font-family: var(--font-script);
+    color: var(--gold);
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin: 6px 14px 0 0;
+  }
+  .pizza-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 44px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .pizza-numbers .num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .pizza-numbers .num-lbl {
+    font-family: var(--font-caps);
+    color: var(--cream-dim);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    line-height: 1.4;
+  }
+
+  /* ============ REASONS ============ */
+  .reasons {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .reasons-head { text-align: center; margin-bottom: 72px; }
+  .reasons-head .eyebrow { margin-bottom: 18px; }
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+  }
+  .reason { position: relative; }
+  .reason-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-strong);
+    display: block;
+  }
+  .reason-title {
+    font-family: var(--font-caps);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.14em;
+    color: var(--cream);
+    margin-bottom: 18px;
+    line-height: 1.25;
+  }
+  .reason p {
+    color: var(--cream-dim);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ============ PHOTO STRIP ============ */
+  .strip { padding: 0; }
+  .strip-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2px;
+  }
+  .strip-grid .cell {
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .strip-grid .cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: brightness(0.85) saturate(1.05);
+  }
+  .strip-grid .cell:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.1); }
+
+  /* ============ ATMOSFERA (quote + photos) ============ */
+  .atmosfera {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .atm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .atm-text { padding-right: 20px; }
+  .atm-text .h-section { margin-bottom: 28px; }
+  .atm-text p {
+    color: var(--cream-dim);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  .atm-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 12px;
+  }
+  .atm-photos .a { grid-row: span 2; }
+  .atm-photos div {
+    overflow: hidden;
+    position: relative;
+  }
+  .atm-photos img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .atm-photos div:hover img { transform: scale(1.05); }
+
+  /* ============ OFFERTA ============ */
+  .offer {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  .offer-bg {
+    position: absolute;
+    inset: 0;
+    background: url('assets/pizza-1.jpeg') center/cover no-repeat;
+    filter: brightness(0.35) saturate(1.1);
+  }
+  .offer-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,17,13,0.7) 0%, rgba(20,17,13,0.4) 50%, rgba(20,17,13,0.85) 100%);
+  }
+  .offer-inner { position: relative; z-index: 2; }
+  .offer .eyebrow { color: var(--gold); }
+  .offer-title {
+    font-family: var(--font-script);
+    font-size: clamp(48px, 7vw, 84px);
+    color: var(--cream);
+    line-height: 1;
+    margin: 12px 0 28px;
+  }
+  .offer-sub {
+    color: var(--cream-dim);
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+  .offer-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: rgba(20,17,13,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--line-strong);
+    padding: 44px 36px;
+    text-align: center;
+  }
+  .offer-card .micro {
+    font-family: var(--font-caps);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    margin-bottom: 22px;
+  }
+  .offer-card .when {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--cream);
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+  .offer-card .deal {
+    font-family: var(--font-script);
+    color: var(--gold);
+    font-size: 56px;
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .offer-card .deal-note {
+    color: var(--cream-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .offer-card .conds {
+    list-style: none;
+    text-align: left;
+    max-width: 280px;
+    margin: 0 auto 28px;
+    color: var(--cream-faint);
+    font-size: 13px;
+    line-height: 2;
+  }
+  .offer-card .conds li::before {
+    content: '\2713  ';
+    color: var(--gold);
+    margin-right: 4px;
+  }
+  .offer-card .badge-only {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--font-caps);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    padding: 7px 18px;
+  }
+  .offer-cta-wrap { margin-top: 44px; }
+  .offer-cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--font-caps);
+    font-size: 17px;
+    letter-spacing: 0.3em;
+    padding: 20px 44px;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .offer-cta:hover { background: var(--cream); transform: translateY(-2px); }
+
+  /* ============ BOOKING FORM ============ */
+  .booking {
+    background: var(--bg);
+    text-align: center;
+  }
+  .booking .eyebrow { color: var(--gold); }
+  .booking .h-section { margin-bottom: 18px; }
+  .booking-sub {
+    color: var(--cream-dim);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto 52px;
+  }
+  .form-card {
+    max-width: 580px;
+    margin: 0 auto;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    padding: 48px 44px;
+    text-align: left;
+  }
+  .form-group { margin-bottom: 22px; }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-row .form-group { margin-bottom: 0; }
+  .form-label {
+    display: block;
+    font-family: var(--font-caps);
+    color: var(--gold);
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    margin-bottom: 12px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+    padding: 12px 0;
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--cream);
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+  }
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: var(--cream-faint);
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-bottom-color: var(--gold);
+  }
+  .form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C9A66B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 24px;
+  }
+  .form-select option { background: var(--bg-2); color: var(--cream); }
+  .form-textarea { resize: vertical; min-height: 70px; }
+  .form-error {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 8px;
+    display: none;
+    font-family: var(--font-body);
+  }
+  .form-error.visible { display: block; }
+  .form-input.invalid, .form-select.invalid, .form-textarea.invalid {
+    border-bottom-color: var(--error);
+  }
+  .form-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--font-caps);
+    font-size: 17px;
+    letter-spacing: 0.3em;
+    padding: 22px;
+    transition: background 0.25s ease;
+    margin-top: 14px;
+  }
+  .form-submit:hover { background: var(--cream); }
+
+  /* Calendar */
+  .calendar {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--line);
+    padding: 18px;
+  }
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-title {
+    font-family: var(--font-caps);
+    color: var(--cream);
+    font-size: 16px;
+    letter-spacing: 0.22em;
+  }
+  .cal-nav {
+    color: var(--gold);
+    font-size: 20px;
+    padding: 4px 12px;
+    transition: background 0.2s ease;
+    line-height: 1;
+  }
+  .cal-nav:hover { background: rgba(201,166,107,0.12); }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-dow {
+    font-family: var(--font-caps);
+    font-size: 10px;
+    color: var(--cream-faint);
+    letter-spacing: 0.18em;
+    text-align: center;
+    padding: 6px 0;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--cream);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    user-select: none;
+  }
+  .cal-day:hover:not(.disabled):not(.selected) {
+    background: rgba(201,166,107,0.18);
+  }
+  .cal-day.disabled {
+    color: rgba(244,233,200,0.18);
+    cursor: not-allowed;
+  }
+  .cal-day.selected {
+    background: var(--gold);
+    color: var(--bg);
+  }
+  .cal-day.empty { cursor: default; }
+
+  /* Confirmation */
+  .form-success {
+    text-align: center;
+    padding: 28px 0;
+  }
+  .form-success .check {
+    width: 64px; height: 64px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 22px;
+    color: var(--gold);
+    font-size: 28px;
+  }
+  .form-success .ok-title {
+    font-family: var(--font-script);
+    color: var(--gold);
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .form-success .ok-text {
+    color: var(--cream-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* ============ TRUST BAR (sticky bottom) ============ */
+  .trust-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 105;
+    background: rgba(20, 17, 13, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-strong);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    padding: 14px 24px;
+    transition: transform 0.4s ease;
+  }
+  .trust-bar.hidden { transform: translateY(110%); }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--cream);
+  }
+  .trust-logo {
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+  }
+  .trust-logo.fork {
+    width: auto; height: 22px;
+  }
+  .trust-rating {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .trust-stars {
+    color: var(--gold);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+  .trust-label {
+    color: var(--cream-dim);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .trust-sep {
+    width: 1px;
+    height: 36px;
+    background: var(--line-strong);
+  }
+  body { padding-bottom: 0; }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    background: var(--bg);
+    padding: 80px 24px 36px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .footer-logo {
+    width: 140px;
+    margin: 0 auto 24px;
+    opacity: 0.95;
+  }
+  .footer-info {
+    color: var(--cream-dim);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: var(--font-script);
+    color: var(--gold);
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .footer-link {
+    font-family: var(--font-caps);
+    color: var(--cream-faint);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    transition: color 0.2s ease;
+  }
+  .footer-link:hover { color: var(--gold); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(244,233,200,0.25);
+    letter-spacing: 0.04em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .announce { font-size: 14px; padding: 11px 14px; line-height: 1.25; }
+    .announce .ann-sep { margin: 0 8px; }
+    .nav, .nav.scrolled { padding: 10px 20px; top: 46px; }
+    .nav-logo img, .nav.scrolled .nav-logo img { height: 108px; }
+    section { padding: 80px 20px; }
+    .hero { padding: 60px 20px 90px; margin-top: 46px; min-height: calc(100vh - 46px); align-items: flex-start; }
+    .hero-logo { width: 180px; }
+    .pizza-split { grid-template-columns: 1fr; gap: 40px; }
+    .pizza-split .col-img { aspect-ratio: 4/3; }
+    .reasons-grid { grid-template-columns: 1fr; gap: 44px; }
+    .reasons-head { margin-bottom: 48px; }
+    .strip-grid { grid-template-columns: repeat(3, 1fr); }
+    .atm-grid { grid-template-columns: 1fr; gap: 36px; }
+    .atm-photos { grid-template-rows: 160px 160px; }
+    .form-card { padding: 32px 24px; }
+    .form-row { grid-template-columns: 1fr; gap: 22px; }
+    .trust-bar { gap: 22px; padding: 11px 14px; }
+    .trust-item { gap: 10px; }
+    .trust-logo { width: 22px; height: 22px; }
+    .trust-rating { font-size: 19px; }
+    .trust-stars { display: none; }
+    .trust-label { font-size: 12px; }
+    .trust-sep { height: 28px; }
+  }
+  @media (max-width: 480px) {
+    .hero-title { font-size: 38px; }
+    .offer-card { padding: 32px 22px; }
+    .offer-card .deal { font-size: 44px; }
+    .nav-cta { font-size: 13px; padding: 10px 18px; letter-spacing: 0.22em; }
+    .hero-cta, .offer-cta { font-size: 15px; padding: 18px 32px; letter-spacing: 0.25em; }
+    .strip-grid { grid-template-columns: repeat(2, 1fr); }
+    .announce { font-size: 13px; padding: 10px 12px; }
+    .announce span:last-child { display: none; }
+    .announce .ann-sep { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ ANNOUNCEMENT BAR ============ -->
+<div class="announce">
+  <a href="#offerta">
+    <span>Prenota il tuo pranzo da Olltre</span>
+    <span class="ann-sep">&middot;</span>
+    <span>2 pizze al prezzo di una, dal lunedi al giovedi</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo"><img src="assets/logo.png" alt="Olltre" /></a>
+  <a href="#prenota" class="nav-cta">Prenota</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <img src="assets/logo.png" alt="Olltre" class="hero-logo" />
+    <div class="hero-eyebrow">SAN ZENO &middot; VERONA</div>
+    <h1 class="hero-title">La pizza alla pala<br/>come <em>non l'hai</em> mai provata</h1>
+    <p class="hero-sub">Alta idratazione, lievitazione lenta, ingredienti locali selezionati. Una pizza leggera, da condividere, che racconta l'Italia regione per regione.</p>
+    <a href="#offerta" class="hero-cta">Scopri l'offerta</a>
+  </div>
+</header>
+
+<!-- ============ LA NOSTRA PIZZA ============ -->
+<section class="pizza">
+  <div class="wrap pizza-split">
+    <div class="col-img">
+      <img src="assets/pizza-2.jpeg" alt="Pizza alla pala Olltre" />
+    </div>
+    <div class="pizza-text">
+      <div class="eyebrow">LA NOSTRA PIZZA</div>
+      <h2 class="h-section">Uno <span class="script">spettacolo</span><br/>prima di un pasto.</h2>
+      <p style="margin-top: 28px;">Olltre nasce con un'idea precisa: una pizza che sia un'esperienza. La pala arriva al tavolo, i condimenti vengono finiti davanti a te, e ogni fetta racconta una regione italiana diversa.</p>
+      <p>L'impasto e' idratato al 90%, con farine di Mulino Rosso da agricoltura biologica certificata e almeno trenta ore di lievitazione. Croccante fuori, morbida dentro, leggera, facile da digerire.</p>
+      <div class="pizza-numbers">
+        <div>
+          <div class="num">90%</div>
+          <div class="num-lbl">IDRATAZIONE<br/>IMPASTO</div>
+        </div>
+        <div>
+          <div class="num">30+</div>
+          <div class="num-lbl">ORE DI<br/>LIEVITAZIONE</div>
+        </div>
+        <div>
+          <div class="num">100%</div>
+          <div class="num-lbl">FARINE<br/>BIOLOGICHE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHOTO STRIP ============ -->
+<section class="strip">
+  <div class="strip-grid">
+    <div class="cell"><img src="assets/pizza-sq-1.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-2.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-3.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-4.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-5.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-6.jpeg" alt="" /></div>
+  </div>
+</section>
+
+<!-- ============ 3 MOTIVI ============ -->
+<section class="reasons">
+  <div class="wrap">
+    <div class="reasons-head">
+      <div class="eyebrow">PERCHE OLLTRE</div>
+      <h2 class="h-section">Tre <span class="script">motivi</span> per scegliere noi.</h2>
+    </div>
+    <div class="reasons-grid">
+      <div class="reason">
+        <span class="reason-num">01</span>
+        <h3 class="reason-title">Per chi vuole<br/>mangiare leggero</h3>
+        <p>Impasto ad alta idratazione, farine biologiche, lievitazione lenta. Puoi mangiarla a pranzo e avere ancora un pomeriggio davanti.</p>
+      </div>
+      <div class="reason">
+        <span class="reason-num">02</span>
+        <h3 class="reason-title">Per chi ama<br/>condividere</h3>
+        <p>La pala va al centro del tavolo. Assaggi tutto senza dover scegliere. Ogni pizza e' una regione italiana da esplorare insieme.</p>
+      </div>
+      <div class="reason">
+        <span class="reason-num">03</span>
+        <h3 class="reason-title">Per chi cerca<br/>qualcosa di diverso</h3>
+        <p>La finiscono direttamente al tavolo, davanti a te. Non e' solo una pizza, e' uno spettacolo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATMOSFERA ============ -->
+<section class="atmosfera">
+  <div class="wrap atm-grid">
+    <div class="atm-text">
+      <div class="eyebrow">L'ATMOSFERA</div>
+      <h2 class="h-section">Un posto <span class="script">intimo</span>,<br/>fatto per restare.</h2>
+      <p>Velluto, legno, luci calde. Olltre e' un piccolo locale in pieno San Zeno: ventiquattro coperti, una cucina a vista, e la sensazione di essere a casa di qualcuno che cucina bene. Puoi venire a pranzo veloce o fermarti per la sera, ma in entrambi i casi non vorrai andartene di fretta.</p>
+    </div>
+    <div class="atm-photos">
+      <div class="a"><img src="assets/hero-1.jpeg" alt="Interno del locale Olltre" /></div>
+      <div><img src="assets/interior-1.jpeg" alt="Dettaglio del locale" /></div>
+      <div><img src="assets/hero-2.jpeg" alt="Sala da pranzo" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFERTA ============ -->
+<section class="offer" id="offerta">
+  <div class="offer-bg"></div>
+  <div class="offer-overlay"></div>
+  <div class="offer-inner wrap-narrow">
+    <div class="eyebrow">SOLO ONLINE</div>
+    <h2 class="offer-title">L'offerta del pranzo</h2>
+    <p class="offer-sub">Per farti scoprire la nostra cucina abbiamo un'offerta esclusiva, riservata a chi prenota online.</p>
+    <div class="offer-card">
+      <div class="micro">OFFERTA PRANZO</div>
+      <div class="when">Dal lunedi al giovedi,<br/>solo a pranzo:</div>
+      <div class="deal">2 pizze al prezzo di 1</div>
+      <div class="deal-note">Ordina una pizza tonda classica e la seconda te la regaliamo noi.</div>
+      <ul class="conds">
+        <li>Valida dal lunedi al giovedi</li>
+        <li>Solo a pranzo</li>
+        <li>Una sola offerta per prenotazione</li>
+      </ul>
+      <div class="badge-only">DISPONIBILE SOLO PRENOTANDO ONLINE</div>
+    </div>
+    <div class="offer-cta-wrap">
+      <a href="#prenota" class="offer-cta">Prenota ora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section class="booking" id="prenota">
+  <div class="wrap-narrow">
+    <div class="eyebrow">PRENOTAZIONE</div>
+    <h2 class="h-section">Prenota il tuo <span class="script">tavolo</span>.</h2>
+    <p class="booking-sub">Scegli data e ora, compila il form. Ti confermiamo in poche ore.</p>
+
+    <form class="form-card" id="bookingForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="nome">NOME</label>
+          <input class="form-input" type="text" id="nome" name="nome" placeholder="Nome" required />
+          <div class="form-error" data-error-for="nome">Inserisci il tuo nome</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cognome">COGNOME</label>
+          <input class="form-input" type="text" id="cognome" name="cognome" placeholder="Cognome" required />
+          <div class="form-error" data-error-for="cognome">Inserisci il tuo cognome</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">EMAIL</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tuo@indirizzo.it" required />
+        <div class="form-error" data-error-for="email">Inserisci un'email valida</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="telefono">TELEFONO</label>
+        <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+39 ..." required />
+        <div class="form-error" data-error-for="telefono">Inserisci un numero valido (minimo 8 cifre)</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="persone">PERSONE</label>
+        <select class="form-select" id="persone" name="persone" required>
+          <option value="">Seleziona</option>
+          <option value="1">1 persona</option>
+          <option value="2">2 persone</option>
+          <option value="3">3 persone</option>
+          <option value="4">4 persone</option>
+          <option value="5">5 persone</option>
+          <option value="6+">6+ persone</option>
+        </select>
+        <div class="form-error" data-error-for="persone">Seleziona il numero di persone</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">DATA</label>
+        <div class="calendar" id="calendar">
+          <div class="cal-header">
+            <button type="button" class="cal-nav" id="calPrev" aria-label="Mese precedente">&#8249;</button>
+            <div class="cal-title" id="calTitle"></div>
+            <button type="button" class="cal-nav" id="calNext" aria-label="Mese successivo">&#8250;</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <input type="hidden" id="data" name="data" required />
+        <div class="form-error" data-error-for="data">Seleziona una data disponibile</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="ora">ORA</label>
+        <select class="form-select" id="ora" name="ora" required>
+          <option value="">Seleziona</option>
+          <option value="12:00">12:00</option>
+          <option value="12:30">12:30</option>
+          <option value="13:00">13:00</option>
+          <option value="13:30">13:30</option>
+        </select>
+        <div class="form-error" data-error-for="ora">Seleziona un orario</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="note">NOTE</label>
+        <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali (opzionale)" rows="2"></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR (sticky) ============ -->
+<aside class="trust-bar" id="trustBar">
+  <div class="trust-item">
+    <svg class="trust-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+      <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+      <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+      <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+    </svg>
+    <span class="trust-rating">4,7</span>
+    <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="trust-label">su Google</span>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <svg class="trust-logo fork" viewBox="0 0 110 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="#00A479">
+        <path d="M9.6 6.1c-.6 0-1 .5-1 1v3.6c0 .6-.4 1-1 1s-1-.4-1-1V7.1c0-.6-.4-1-1-1s-1 .5-1 1v3.6c0 .6-.4 1-1 1s-1-.4-1-1V7.1c0-.6-.5-1-1-1s-1 .5-1 1v4.1c0 1.7 1.1 3.1 2.7 3.6v6.7c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-6.7c1.5-.5 2.7-1.9 2.7-3.6V7.1c-.1-.6-.5-1-1.1-1z"/>
+        <text x="14" y="18" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="-0.4">thefork</text>
+      </g>
+    </svg>
+    <span class="trust-rating">9,2</span>
+    <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="trust-label">su TheFork</span>
+  </div>
+</aside>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <img src="assets/logo.png" alt="Olltre" class="footer-logo" />
+  <div class="footer-tagline">quello che ti aspetti</div>
+  <div class="footer-info">Via Porta San Zeno, 33 &middot; 37123 Verona</div>
+  <div class="footer-links">
+    <!-- TODO: sostituire con link Google Maps reale -->
+    <a href="https://maps.google.com/?q=Via+Porta+San+Zeno+33+Verona" class="footer-link" target="_blank" rel="noopener">GOOGLE MAPS</a>
+    <a href="tel:+390000000000" class="footer-link">TELEFONO</a>
+    <a href="https://pizzeriaolltre.it" class="footer-link" target="_blank" rel="noopener">SITO PRINCIPALE</a>
+    <a href="#prenota" class="footer-link">PRENOTA</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Olltre &middot; Via Porta San Zeno 33, Verona</div>
+</footer>
+
+<script>
+  /* Nav scroll state */
+  (function() {
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* Trust bar: hide when footer is in view */
+  (function() {
+    const trust = document.getElementById('trustBar');
+    const footer = document.querySelector('.footer');
+    if (!trust || !footer || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => trust.classList.toggle('hidden', e.isIntersecting));
+    }, { threshold: 0.05 });
+    obs.observe(footer);
+  })();
+
+  /* ============ CALENDAR ============ */
+  (function() {
+    const monthNames = ['GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO','LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE'];
+    const dowNames = ['LUN','MAR','MER','GIO','VEN','SAB','DOM'];
+    // Configurazione: giorni della settimana disabilitati (0=domenica, 6=sabato)
+    const disabledDow = [0, 6];
+
+    const calTitle = document.getElementById('calTitle');
+    const calGrid  = document.getElementById('calGrid');
+    const calPrev  = document.getElementById('calPrev');
+    const calNext  = document.getElementById('calNext');
+    const dataInput = document.getElementById('data');
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    let viewYear = today.getFullYear();
+    let viewMonth = today.getMonth();
+    let selectedDate = null;
+
+    function render() {
+      calTitle.textContent = monthNames[viewMonth] + ' ' + viewYear;
+      calGrid.innerHTML = '';
+      dowNames.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'cal-dow';
+        el.textContent = d;
+        calGrid.appendChild(el);
+      });
+      const firstDay = new Date(viewYear, viewMonth, 1);
+      const startOffset = (firstDay.getDay() + 6) % 7;
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      for (let i = 0; i < startOffset; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day empty';
+        calGrid.appendChild(empty);
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        cell.textContent = d;
+        const cellDate = new Date(viewYear, viewMonth, d);
+        const dow = cellDate.getDay();
+        const isPast = cellDate < today;
+        const isDisabledDow = disabledDow.indexOf(dow) !== -1;
+        if (isPast || isDisabledDow) cell.classList.add('disabled');
+        else cell.addEventListener('click', () => selectDate(cellDate));
+        if (selectedDate &&
+            selectedDate.getFullYear() === cellDate.getFullYear() &&
+            selectedDate.getMonth() === cellDate.getMonth() &&
+            selectedDate.getDate() === cellDate.getDate()) {
+          cell.classList.add('selected');
+        }
+        calGrid.appendChild(cell);
+      }
+    }
+
+    function selectDate(date) {
+      selectedDate = date;
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2,'0');
+      const dd = String(date.getDate()).padStart(2,'0');
+      dataInput.value = yyyy + '-' + mm + '-' + dd;
+      const err = document.querySelector('[data-error-for="data"]');
+      if (err) err.classList.remove('visible');
+      render();
+    }
+
+    calPrev.addEventListener('click', () => {
+      viewMonth--;
+      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+      if (viewYear < today.getFullYear() || (viewYear === today.getFullYear() && viewMonth < today.getMonth())) {
+        viewMonth = today.getMonth();
+        viewYear  = today.getFullYear();
+      }
+      render();
+    });
+    calNext.addEventListener('click', () => {
+      viewMonth++;
+      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+      render();
+    });
+
+    render();
+  })();
+
+  /* ============ FORM VALIDATION ============ */
+  (function() {
+    const form = document.getElementById('bookingForm');
+
+    function showError(name, show) {
+      const err = document.querySelector('[data-error-for="' + name + '"]');
+      const input = document.getElementById(name);
+      if (err) err.classList.toggle('visible', show);
+      if (input) input.classList.toggle('invalid', show);
+    }
+    const validateEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const validatePhone = v => v.replace(/\D/g,'').length >= 8;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fields = ['nome','cognome','email','telefono','persone','data','ora'];
+      let ok = true;
+      fields.forEach(f => {
+        const el = document.getElementById(f);
+        const v = (el.value || '').trim();
+        let valid = v.length > 0;
+        if (f === 'email') valid = valid && validateEmail(v);
+        if (f === 'telefono') valid = valid && validatePhone(v);
+        showError(f, !valid);
+        if (!valid) ok = false;
+      });
+      if (!ok) {
+        const firstInvalid = form.querySelector('.invalid');
+        if (firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+
+      // TODO: sostituire con vera POST al backend
+      // const data = new FormData(form);
+      // fetch('/api/booking', { method: 'POST', body: data })...
+
+      form.innerHTML = ''
+        + '<div class="form-success">'
+        + '  <div class="check">&#10003;</div>'
+        + '  <div class="ok-title">Grazie</div>'
+        + '  <div class="ok-text">Abbiamo ricevuto la tua prenotazione. Ti contatteremo a breve per confermare il tavolo.</div>'
+        + '</div>';
+      form.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    form.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+      const clear = () => { if (el.id) showError(el.id, false); };
+      el.addEventListener('input', clear);
+      el.addEventListener('change', clear);
+    });
+  })();
+</script>
+
+</body>
+</html>
