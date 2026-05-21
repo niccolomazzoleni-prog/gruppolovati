@@ -64,8 +64,7 @@
     letter-spacing: 0;
     line-height: 1.3;
   }
-  .announce a { display: inline-block; }
-  .announce .ann-sep { margin: 0 12px; opacity: 0.5; }
+  .announce a { display: block; max-width: 920px; margin: 0 auto; }
 
   /* ============ NAVBAR ============ */
   .nav {
@@ -703,7 +702,9 @@
     color: var(--cream-dim);
     font-size: 14px;
     letter-spacing: 0.02em;
+    white-space: nowrap;
   }
+  .trust-rating { white-space: nowrap; }
   .trust-sep {
     width: 1px;
     height: 36px;
@@ -757,12 +758,11 @@
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 900px) {
-    .announce { font-size: 14px; padding: 11px 14px; line-height: 1.25; }
-    .announce .ann-sep { margin: 0 8px; }
-    .nav, .nav.scrolled { padding: 10px 20px; top: 46px; }
+    .announce { font-size: 13px; padding: 10px 14px; line-height: 1.3; }
+    .nav, .nav.scrolled { padding: 10px 20px; top: 68px; }
     .nav-logo img, .nav.scrolled .nav-logo img { height: 108px; }
     section { padding: 80px 20px; }
-    .hero { padding: 60px 20px 90px; margin-top: 46px; min-height: calc(100vh - 46px); align-items: flex-start; }
+    .hero { padding: 60px 20px 90px; margin-top: 68px; min-height: calc(100vh - 68px); align-items: flex-start; }
     .hero-logo { width: 180px; }
     .pizza-split { grid-template-columns: 1fr; gap: 40px; }
     .pizza-split .col-img { aspect-ratio: 4/3; }
@@ -773,14 +773,14 @@
     .atm-photos { grid-template-rows: 160px 160px; }
     .form-card { padding: 32px 24px; }
     .form-row { grid-template-columns: 1fr; gap: 22px; }
-    .trust-bar { gap: 28px; padding: 16px 16px; }
-    .trust-item { gap: 12px; }
-    .trust-logo { width: 28px; height: 28px; }
-    .trust-logo.fork { height: 22px; }
-    .trust-rating { font-size: 24px; }
+    .trust-bar { gap: 18px; padding: 14px 12px; }
+    .trust-item { gap: 10px; }
+    .trust-logo { width: 26px; height: 26px; }
+    .trust-logo.fork { width: auto; height: 20px; }
+    .trust-rating { font-size: 22px; }
     .trust-stars { display: none; }
-    .trust-label { font-size: 15px; }
-    .trust-sep { height: 36px; }
+    .trust-label { font-size: 13px; }
+    .trust-sep { height: 32px; }
   }
   @media (max-width: 480px) {
     .hero-title { font-size: 38px; }
@@ -789,9 +789,7 @@
     .nav-cta { font-size: 13px; padding: 10px 18px; letter-spacing: 0.22em; }
     .hero-cta, .offer-cta { font-size: 15px; padding: 18px 32px; letter-spacing: 0.25em; }
     .strip-grid { grid-template-columns: repeat(2, 1fr); }
-    .announce { font-size: 13px; padding: 10px 12px; }
-    .announce span:last-child { display: none; }
-    .announce .ann-sep { display: none; }
+    .announce { font-size: 12px; padding: 9px 12px; line-height: 1.3; }
   }
 </style>
 </head>
@@ -799,11 +797,7 @@
 
 <!-- ============ ANNOUNCEMENT BAR ============ -->
 <div class="announce">
-  <a href="#prenota">
-    <span>Prenota il tuo pranzo da Olltre online</span>
-    <span class="ann-sep">&middot;</span>
-    <span>2 pizze classiche al prezzo di 1</span>
-  </a>
+  <a href="#prenota">Approfitta della promo: 2 pizze classiche al costo di 1 se vieni a pranzo dal lunedi al giovedi</a>
 </div>
 
 <!-- ============ NAV ============ -->
