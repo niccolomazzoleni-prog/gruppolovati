@@ -1078,8 +1078,8 @@
   (function() {
     const monthNames = ['GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO','LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE'];
     const dowNames = ['LUN','MAR','MER','GIO','VEN','SAB','DOM'];
-    // Configurazione: giorni della settimana disabilitati (0=domenica, 6=sabato)
-    const disabledDow = [0, 6];
+    // Configurazione: giorni della settimana disabilitati (0=domenica, 5=venerdi, 6=sabato)
+    const disabledDow = [0, 5, 6];
 
     const calTitle = document.getElementById('calTitle');
     const calGrid  = document.getElementById('calGrid');
