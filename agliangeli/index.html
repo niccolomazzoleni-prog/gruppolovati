@@ -461,11 +461,10 @@
     flex-shrink: 0;
   }
   .offer-dishes .dish {
-    font-family: var(--font-garamond);
-    font-style: italic;
-    color: rgba(245,240,235,0.75);
-    font-size: 17px;
-    line-height: 1.5;
+    font-family: var(--font-display);
+    color: rgba(245,240,235,0.9);
+    font-size: 18px;
+    line-height: 1.45;
   }
   .offer-divider {
     border: 0;
@@ -479,6 +478,13 @@
     font-size: 52px;
     line-height: 1;
     margin-bottom: 6px;
+  }
+  .offer-price-old {
+    text-decoration: line-through;
+    color: rgba(245,240,235,0.45);
+    font-size: 32px;
+    margin-right: 14px;
+    vertical-align: middle;
   }
   .offer-price-note {
     font-family: var(--font-body);
@@ -991,7 +997,7 @@
         <li><span class="roman">IV.</span> <span class="dish">Predessert + Dolce</span></li>
       </ul>
       <hr class="offer-divider" />
-      <div class="offer-price">59<span style="font-size:32px;">&euro;</span></div>
+      <div class="offer-price"><span class="offer-price-old">79&euro;</span>59<span style="font-size:32px;">&euro;</span></div>
       <div class="offer-price-note">a persona &middot; acqua e caffe inclusi</div>
       <div class="offer-fineprint">Valido dal lunedi al venerdi, solo a pranzo. Posti limitati.</div>
       <div class="offer-badge">DISPONIBILE SOLO PRENOTANDO ONLINE</div>
