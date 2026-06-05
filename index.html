@@ -1208,9 +1208,17 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         return;
       }
 
-      // TODO: sostituire con vera POST al backend
-      // const data = new FormData(form);
-      // fetch('/api/booking', { method: 'POST', body: data })...
+      // Invio prenotazione: Google Apps Script (Sheet + email) + evento Meta Lead
+      try {
+        var _p = new URLSearchParams();
+        ['nome','cognome','email','telefono','persone','data','ora','note'].forEach(function(_f){
+          var _el = document.getElementById(_f);
+          _p.append(_f, _el ? _el.value : '');
+        });
+        _p.append('locale', 'Pizzeria Olltre');
+        fetch('https://script.google.com/macros/s/AKfycbyFDytTeOiY2-Hogp-KBB5kWFqThqz6e86m1uSnNhkcbdAMQh8saq0IBisMAzdOV3riUQ/exec', { method: 'POST', mode: 'no-cors', body: _p });
+      } catch (_err) {}
+      if (typeof fbq === 'function') { fbq('track', 'Lead'); }
 
       form.innerHTML = ''
         + '<div class="form-success">'
