@@ -18,6 +18,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<link rel="preload" as="image" href="assets/hero-1.webp" fetchpriority="high" />
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -103,9 +104,9 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     border-bottom-color: var(--line);
     padding: 10px 36px;
   }
-  .nav.scrolled .nav-logo img { height: 110px; }
+  .nav.scrolled .nav-logo img { height: 44px; }
   .nav-logo { display: flex; align-items: center; }
-  .nav-logo img { height: 144px; width: auto; transition: height 0.3s ease; }
+  .nav-logo img { height: 48px; width: auto; transition: height 0.3s ease; }
   .nav-cta {
     display: inline-block;
     border: 1px solid var(--cream);
@@ -133,7 +134,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('assets/hero-1.jpeg') center/cover no-repeat;
+    background: url('assets/hero-1.webp') center/cover no-repeat;
     transform: scale(1.05);
   }
   .hero-overlay {
@@ -185,6 +186,14 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     opacity: 0;
     animation: fadeUp 1s ease forwards 0.7s;
   }
+  .hero-cta-group {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.85s;
+  }
   .hero-cta {
     display: inline-block;
     background: var(--cream);
@@ -194,10 +203,19 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     letter-spacing: 0.3em;
     padding: 20px 44px;
     transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 0.85s;
   }
   .hero-cta:hover { background: var(--gold); transform: translateY(-2px); }
+  .hero-cta-tel {
+    display: inline-block;
+    border: 1px solid rgba(244,233,200,0.55);
+    color: var(--cream);
+    font-family: var(--font-caps);
+    font-size: 17px;
+    letter-spacing: 0.28em;
+    padding: 20px 44px;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .hero-cta-tel:hover { background: rgba(244,233,200,0.1); border-color: var(--cream); }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -391,7 +409,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   .offer-bg {
     position: absolute;
     inset: 0;
-    background: url('assets/pizza-1.jpeg') center/cover no-repeat;
+    background: url('assets/pizza-1.webp') center/cover no-repeat;
     filter: brightness(0.35) saturate(1.1);
   }
   .offer-overlay {
@@ -578,71 +596,6 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   }
   .form-submit:hover { background: var(--cream); }
 
-  /* Calendar */
-  .calendar {
-    background: rgba(0,0,0,0.25);
-    border: 1px solid var(--line);
-    padding: 18px;
-  }
-  .cal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .cal-title {
-    font-family: var(--font-caps);
-    color: var(--cream);
-    font-size: 16px;
-    letter-spacing: 0.22em;
-  }
-  .cal-nav {
-    color: var(--gold);
-    font-size: 20px;
-    padding: 4px 12px;
-    transition: background 0.2s ease;
-    line-height: 1;
-  }
-  .cal-nav:hover { background: rgba(201,166,107,0.12); }
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-  }
-  .cal-dow {
-    font-family: var(--font-caps);
-    font-size: 10px;
-    color: var(--cream-faint);
-    letter-spacing: 0.18em;
-    text-align: center;
-    padding: 6px 0;
-  }
-  .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 14px;
-    color: var(--cream);
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-    user-select: none;
-  }
-  .cal-day:hover:not(.disabled):not(.selected) {
-    background: rgba(201,166,107,0.18);
-  }
-  .cal-day.disabled {
-    color: rgba(244,233,200,0.18);
-    cursor: not-allowed;
-  }
-  .cal-day.selected {
-    background: var(--gold);
-    color: var(--bg);
-  }
-  .cal-day.empty { cursor: default; }
-
   /* Confirmation */
   .form-success {
     text-align: center;
@@ -774,11 +727,31 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     letter-spacing: 0.04em;
   }
 
+  .form-hint {
+    font-size: 13px;
+    color: var(--cream-faint);
+    margin-bottom: 10px;
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
+  }
+  .trust-cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--font-caps);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    padding: 10px 22px;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .trust-cta:hover { background: var(--cream); }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 900px) {
     .announce { font-size: 13px; padding: 10px 14px; line-height: 1.3; }
     .nav, .nav.scrolled { padding: 10px 20px; top: 68px; }
-    .nav-logo img, .nav.scrolled .nav-logo img { height: 108px; }
+    .nav-logo img, .nav.scrolled .nav-logo img { height: 48px; }
     section { padding: 80px 20px; }
     .hero { padding: 60px 20px 90px; margin-top: 68px; min-height: calc(100vh - 68px); align-items: flex-start; }
     .hero-logo { width: 180px; }
@@ -805,7 +778,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     .offer-card { padding: 32px 22px; }
     .offer-card .deal { font-size: 44px; }
     .nav-cta { font-size: 13px; padding: 10px 18px; letter-spacing: 0.22em; }
-    .hero-cta, .offer-cta { font-size: 15px; padding: 18px 32px; letter-spacing: 0.25em; }
+    .hero-cta, .hero-cta-tel, .offer-cta { font-size: 15px; padding: 18px 26px; letter-spacing: 0.22em; }
     .strip-grid { grid-template-columns: repeat(2, 1fr); }
     .announce { font-size: 12px; padding: 9px 12px; line-height: 1.3; }
   }
@@ -833,7 +806,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     <div class="hero-eyebrow">SAN ZENO &middot; VERONA</div>
     <h1 class="hero-title">La pizza alla pala<br/>come <em>non l'hai</em> mai provata</h1>
     <p class="hero-sub">Alta idratazione, lievitazione lenta, ingredienti locali selezionati. Una pizza leggera, da condividere, che racconta l'Italia regione per regione.</p>
-    <a href="#offerta" class="hero-cta">Scopri l'offerta</a>
+    <div class="hero-cta-group">
+      <a href="#prenota" class="hero-cta">Prenota ora</a>
+      <a href="tel:0451117173" class="hero-cta-tel" id="ctaTel">&#9742;&nbsp;Chiama</a>
+    </div>
   </div>
 </header>
 
@@ -841,7 +817,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 <section class="pizza">
   <div class="wrap pizza-split">
     <div class="col-img">
-      <img src="assets/pizza-2.jpeg" alt="Pizza alla pala Olltre" />
+      <img src="assets/pizza-2.webp" alt="Pizza alla pala Olltre" loading="lazy" width="600" height="750" />
     </div>
     <div class="pizza-text">
       <div class="eyebrow">LA NOSTRA PIZZA</div>
@@ -869,12 +845,12 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 <!-- ============ PHOTO STRIP ============ -->
 <section class="strip">
   <div class="strip-grid">
-    <div class="cell"><img src="assets/pizza-sq-1.jpeg" alt="" /></div>
-    <div class="cell"><img src="assets/pizza-sq-2.jpeg" alt="" /></div>
-    <div class="cell"><img src="assets/pizza-sq-3.jpeg" alt="" /></div>
-    <div class="cell"><img src="assets/pizza-sq-4.jpeg" alt="" /></div>
-    <div class="cell"><img src="assets/pizza-sq-5.jpeg" alt="" /></div>
-    <div class="cell"><img src="assets/pizza-sq-6.jpeg" alt="" /></div>
+    <div class="cell"><img src="assets/pizza-sq-1.webp" alt="" loading="lazy" width="600" height="600" /></div>
+    <div class="cell"><img src="assets/pizza-sq-2.webp" alt="" loading="lazy" width="600" height="600" /></div>
+    <div class="cell"><img src="assets/pizza-sq-3.webp" alt="" loading="lazy" width="600" height="600" /></div>
+    <div class="cell"><img src="assets/pizza-sq-4.webp" alt="" loading="lazy" width="600" height="600" /></div>
+    <div class="cell"><img src="assets/pizza-sq-5.webp" alt="" loading="lazy" width="600" height="600" /></div>
+    <div class="cell"><img src="assets/pizza-sq-6.webp" alt="" loading="lazy" width="600" height="600" /></div>
   </div>
 </section>
 
@@ -914,9 +890,9 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       <p>Velluto, legno, luci calde. Olltre e' un piccolo locale in pieno San Zeno: ventiquattro coperti, una cucina a vista, e la sensazione di essere a casa di qualcuno che cucina bene. Puoi venire a pranzo veloce o fermarti per la sera, ma in entrambi i casi non vorrai andartene di fretta.</p>
     </div>
     <div class="atm-photos">
-      <div class="a"><img src="assets/hero-1.jpeg" alt="Interno del locale Olltre" /></div>
-      <div><img src="assets/interior-1.jpeg" alt="Dettaglio del locale" /></div>
-      <div><img src="assets/hero-2.jpeg" alt="Sala da pranzo" /></div>
+      <div class="a"><img src="assets/hero-1.webp" alt="Interno del locale Olltre" loading="lazy" width="900" height="1125" /></div>
+      <div><img src="assets/interior-1.webp" alt="Dettaglio del locale" loading="lazy" width="900" height="600" /></div>
+      <div><img src="assets/hero-2.webp" alt="Sala da pranzo" loading="lazy" width="900" height="600" /></div>
     </div>
   </div>
 </section>
@@ -955,17 +931,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     <p class="booking-sub">Scegli data e ora, compila il form. Ti confermiamo in poche ore.</p>
 
     <form class="form-card" id="bookingForm" novalidate>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="nome">NOME</label>
-          <input class="form-input" type="text" id="nome" name="nome" placeholder="Nome" required />
-          <div class="form-error" data-error-for="nome">Inserisci il tuo nome</div>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="cognome">COGNOME</label>
-          <input class="form-input" type="text" id="cognome" name="cognome" placeholder="Cognome" required />
-          <div class="form-error" data-error-for="cognome">Inserisci il tuo cognome</div>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="nome">NOME</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Nome" required />
+        <div class="form-error" data-error-for="nome">Inserisci il tuo nome</div>
       </div>
 
       <div class="form-group">
@@ -995,17 +964,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       </div>
 
       <div class="form-group">
-        <label class="form-label">DATA</label>
-        <div class="calendar" id="calendar">
-          <div class="cal-header">
-            <button type="button" class="cal-nav" id="calPrev" aria-label="Mese precedente">&#8249;</button>
-            <div class="cal-title" id="calTitle"></div>
-            <button type="button" class="cal-nav" id="calNext" aria-label="Mese successivo">&#8250;</button>
-          </div>
-          <div class="cal-grid" id="calGrid"></div>
-        </div>
-        <input type="hidden" id="data" name="data" required />
-        <div class="form-error" data-error-for="data">Seleziona una data disponibile</div>
+        <label class="form-label" for="data">DATA</label>
+        <div class="form-hint">Disponibile lun–gio, solo a pranzo</div>
+        <input class="form-input" type="date" id="data" name="data" required />
+        <div class="form-error" data-error-for="data">Seleziona un giorno disponibile (lun–gio)</div>
       </div>
 
       <div class="form-group">
@@ -1055,6 +1017,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
     <span class="trust-label">su TheFork</span>
   </div>
+  <div class="trust-sep"></div>
+  <a href="tel:0451117173" class="trust-cta" id="ctaTelBar">&#9742;&nbsp;Chiama</a>
 </aside>
 
 <!-- ============ FOOTER ============ -->
@@ -1065,7 +1029,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   <div class="footer-links">
     <!-- TODO: sostituire con link Google Maps reale -->
     <a href="https://maps.google.com/?q=Via+Porta+San+Zeno+33+Verona" class="footer-link" target="_blank" rel="noopener">GOOGLE MAPS</a>
-    <a href="tel:+390000000000" class="footer-link">TELEFONO</a>
+    <a href="tel:0451117173" class="footer-link" id="ctaTelFooter">TELEFONO</a>
     <a href="https://pizzeriaolltre.it" class="footer-link" target="_blank" rel="noopener">SITO PRINCIPALE</a>
     <a href="#prenota" class="footer-link">PRENOTA</a>
   </div>
@@ -1092,88 +1056,22 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     obs.observe(footer);
   })();
 
-  /* ============ CALENDAR ============ */
+  /* Date input: set min=oggi, rifiuta ven/sab/dom */
   (function() {
-    const monthNames = ['GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO','LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE'];
-    const dowNames = ['LUN','MAR','MER','GIO','VEN','SAB','DOM'];
-    // Configurazione: giorni della settimana disabilitati (0=domenica, 5=venerdi, 6=sabato)
-    const disabledDow = [0, 5, 6];
-
-    const calTitle = document.getElementById('calTitle');
-    const calGrid  = document.getElementById('calGrid');
-    const calPrev  = document.getElementById('calPrev');
-    const calNext  = document.getElementById('calNext');
-    const dataInput = document.getElementById('data');
-
-    const today = new Date(); today.setHours(0,0,0,0);
-    let viewYear = today.getFullYear();
-    let viewMonth = today.getMonth();
-    let selectedDate = null;
-
-    function render() {
-      calTitle.textContent = monthNames[viewMonth] + ' ' + viewYear;
-      calGrid.innerHTML = '';
-      dowNames.forEach(d => {
-        const el = document.createElement('div');
-        el.className = 'cal-dow';
-        el.textContent = d;
-        calGrid.appendChild(el);
-      });
-      const firstDay = new Date(viewYear, viewMonth, 1);
-      const startOffset = (firstDay.getDay() + 6) % 7;
-      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-      for (let i = 0; i < startOffset; i++) {
-        const empty = document.createElement('div');
-        empty.className = 'cal-day empty';
-        calGrid.appendChild(empty);
+    var inp = document.getElementById('data');
+    var t = new Date();
+    inp.min = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
+    var disabled = [0, 5, 6]; // dom, ven, sab
+    inp.addEventListener('change', function() {
+      if (!this.value) return;
+      var d = new Date(this.value + 'T12:00:00');
+      if (disabled.indexOf(d.getDay()) !== -1) {
+        this.value = '';
+        var err = document.querySelector('[data-error-for="data"]');
+        if (err) err.classList.add('visible');
+        this.classList.add('invalid');
       }
-      for (let d = 1; d <= daysInMonth; d++) {
-        const cell = document.createElement('div');
-        cell.className = 'cal-day';
-        cell.textContent = d;
-        const cellDate = new Date(viewYear, viewMonth, d);
-        const dow = cellDate.getDay();
-        const isPast = cellDate < today;
-        const isDisabledDow = disabledDow.indexOf(dow) !== -1;
-        if (isPast || isDisabledDow) cell.classList.add('disabled');
-        else cell.addEventListener('click', () => selectDate(cellDate));
-        if (selectedDate &&
-            selectedDate.getFullYear() === cellDate.getFullYear() &&
-            selectedDate.getMonth() === cellDate.getMonth() &&
-            selectedDate.getDate() === cellDate.getDate()) {
-          cell.classList.add('selected');
-        }
-        calGrid.appendChild(cell);
-      }
-    }
-
-    function selectDate(date) {
-      selectedDate = date;
-      const yyyy = date.getFullYear();
-      const mm = String(date.getMonth() + 1).padStart(2,'0');
-      const dd = String(date.getDate()).padStart(2,'0');
-      dataInput.value = yyyy + '-' + mm + '-' + dd;
-      const err = document.querySelector('[data-error-for="data"]');
-      if (err) err.classList.remove('visible');
-      render();
-    }
-
-    calPrev.addEventListener('click', () => {
-      viewMonth--;
-      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
-      if (viewYear < today.getFullYear() || (viewYear === today.getFullYear() && viewMonth < today.getMonth())) {
-        viewMonth = today.getMonth();
-        viewYear  = today.getFullYear();
-      }
-      render();
     });
-    calNext.addEventListener('click', () => {
-      viewMonth++;
-      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
-      render();
-    });
-
-    render();
   })();
 
   /* ============ FORM VALIDATION ============ */
@@ -1191,7 +1089,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const fields = ['nome','cognome','email','telefono','persone','data','ora'];
+      const fields = ['nome','email','telefono','persone','data','ora'];
       let ok = true;
       fields.forEach(f => {
         const el = document.getElementById(f);
@@ -1209,16 +1107,19 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       }
 
       // Invio prenotazione: Google Apps Script (Sheet + email) + evento Meta Lead
+      var _eid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      // TODO CAPI: leggi event_id dal POST body e invia server-side Lead event (stessa eventID per deduplication)
       try {
         var _p = new URLSearchParams();
-        ['nome','cognome','email','telefono','persone','data','ora','note'].forEach(function(_f){
+        ['nome','email','telefono','persone','data','ora','note'].forEach(function(_f){
           var _el = document.getElementById(_f);
           _p.append(_f, _el ? _el.value : '');
         });
         _p.append('locale', 'Pizzeria Olltre');
+        _p.append('event_id', _eid);
         fetch('https://script.google.com/macros/s/AKfycbyFDytTeOiY2-Hogp-KBB5kWFqThqz6e86m1uSnNhkcbdAMQh8saq0IBisMAzdOV3riUQ/exec', { method: 'POST', mode: 'no-cors', body: _p });
       } catch (_err) {}
-      if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+      if (typeof fbq === 'function') { fbq('track', 'Lead', {}, {eventID: _eid}); }
 
       form.innerHTML = ''
         + '<div class="form-success">'
@@ -1233,6 +1134,26 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       const clear = () => { if (el.id) showError(el.id, false); };
       el.addEventListener('input', clear);
       el.addEventListener('change', clear);
+    });
+  })();
+
+  /* Pixel micro-eventi: FormStart al primo focus, Contact sui click rapidi */
+  (function() {
+    var started = false;
+    var form = document.getElementById('bookingForm');
+    if (form) {
+      form.addEventListener('focusin', function() {
+        if (!started && typeof fbq === 'function') {
+          fbq('trackCustom', 'FormStart');
+          started = true;
+        }
+      }, true);
+    }
+    ['ctaTel','ctaTelBar','ctaTelFooter'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function() {
+        if (typeof fbq === 'function') fbq('trackCustom', 'Contact');
+      });
     });
   })();
 </script>
