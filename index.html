@@ -1152,7 +1152,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     ['ctaTel','ctaTelBar','ctaTelFooter'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.addEventListener('click', function() {
-        if (typeof fbq === 'function') fbq('trackCustom', 'Contact');
+        if (typeof fbq === 'function') fbq('track', 'Contact');
       });
     });
   })();
