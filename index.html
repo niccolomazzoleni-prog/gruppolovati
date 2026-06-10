@@ -734,6 +734,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     font-family: var(--font-body);
     letter-spacing: 0.02em;
   }
+  .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; pointer-events: none; }
   .trust-cta {
     display: inline-block;
     background: var(--gold);
@@ -911,6 +912,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
         <div class="form-error" data-error-for="note-2">Inserisci le tue note</div>
       </div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="hp" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1049,7 +1051,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
         <div class="form-error" data-error-for="note">Inserisci le tue note</div>
       </div>
-
+      <div class="hp-field" aria-hidden="true"><input type="text" name="hp" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1155,6 +1157,12 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      var _hp = form.querySelector('[name="hp"]');
+      if (_hp && _hp.value.length > 0) {
+        form.innerHTML = '<div class="form-success"><div class="check">&#10003;</div><div class="ok-title">' + successTitle + '</div><div class="ok-text">' + successText + '</div></div>';
+        form.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
       var ok = true;
       fieldIds.forEach(function(fId) {
         var el = document.getElementById(fId);
