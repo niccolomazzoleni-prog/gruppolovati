@@ -908,7 +908,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       </div>
       <div class="form-group">
         <label class="form-label" for="note-2">NOTE</label>
-        <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali (opzionale)" rows="2"></textarea>
+        <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
+        <div class="form-error" data-error-for="note-2">Inserisci le tue note</div>
       </div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
@@ -1045,7 +1046,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
       <div class="form-group">
         <label class="form-label" for="note">NOTE</label>
-        <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali (opzionale)" rows="2"></textarea>
+        <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
+        <div class="form-error" data-error-for="note">Inserisci le tue note</div>
       </div>
 
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
@@ -1198,8 +1200,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
   var _oltUrl = 'https://script.google.com/macros/s/AKfycbyFDytTeOiY2-Hogp-KBB5kWFqThqz6e86m1uSnNhkcbdAMQh8saq0IBisMAzdOV3riUQ/exec';
   var _oltTxt = 'Abbiamo ricevuto la tua prenotazione. Ti contatteremo a breve per confermare il tavolo.';
-  _initForm('bookingForm',  ['nome','email','telefono','persone','data','ora'],          _oltUrl, 'Pizzeria Olltre', 'Grazie', _oltTxt);
-  _initForm('bookingForm2', ['nome-2','email-2','telefono-2','persone-2','data-2','ora-2'], _oltUrl, 'Pizzeria Olltre', 'Grazie', _oltTxt);
+  _initForm('bookingForm',  ['nome','email','telefono','persone','data','ora','note'],             _oltUrl, 'Pizzeria Olltre', 'Grazie', _oltTxt);
+  _initForm('bookingForm2', ['nome-2','email-2','telefono-2','persone-2','data-2','ora-2','note-2'], _oltUrl, 'Pizzeria Olltre', 'Grazie', _oltTxt);
 
   /* Pixel micro-eventi: FormStart al primo focus, Contact sui click rapidi */
   (function() {
