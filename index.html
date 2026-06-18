@@ -1286,14 +1286,9 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       try {
         fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: _p })
           .catch(function() { /* opaque response o errore di rete: ignoriamo */ });
-      } catch (_err) { /* fetch non disponibile: ignoriamo, conferma va avanti */ }
+      } catch (_err) { /* fetch non disponibile: ignoriamo, redirect va avanti */ }
       if (typeof fbq === 'function') { fbq('track', 'Lead', {}, {eventID: _eid}); }
-      form.innerHTML = '<div class="form-success">'
-        + '<div class="check">&#10003;</div>'
-        + '<div class="ok-title">' + successTitle + '</div>'
-        + '<div class="ok-text">' + successText + '</div>'
-        + '</div>';
-      form.scrollIntoView({behavior:'smooth', block:'center'});
+      window.location.href = 'grazie.html';
     });
 
     form.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(function(el) {
