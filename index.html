@@ -735,7 +735,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     font-family: var(--font-body);
     letter-spacing: 0.02em;
   }
-  .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; pointer-events: none; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
   /* ── Flatpickr: tema Olltre ── */
   .flatpickr-calendar {
@@ -959,10 +959,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       </div>
       <div class="form-group">
         <label class="form-label" for="note-2">NOTE</label>
-        <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
+        <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali" rows="2"></textarea>
         <div class="form-error" data-error-for="note-2">Inserisci le tue note</div>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="contact_time" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1098,10 +1098,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
       <div class="form-group">
         <label class="form-label" for="note">NOTE</label>
-        <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
+        <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali" rows="2"></textarea>
         <div class="form-error" data-error-for="note">Inserisci le tue note</div>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="contact_time" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1177,25 +1177,59 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   (function() {
     var today = new Date();
     today.setHours(0,0,0,0);
-    var cfg = {
-      locale: 'it',
-      dateFormat: 'd/m/Y',
-      minDate: today,
-      disableMobile: false,
-      disable: [function(date) {
-        var d = date.getDay();
-        return d === 0 || d === 5 || d === 6; // dom, ven, sab
-      }],
-      onChange: function(selectedDates, dateStr, instance) {
-        var inp = instance.input;
-        inp.classList.remove('invalid');
-        var err = document.querySelector('[data-error-for="' + inp.id + '"]');
-        if (err) err.classList.remove('visible');
-      }
-    };
+    var todayStr = today.getFullYear() + '-'
+      + String(today.getMonth()+1).padStart(2,'0') + '-'
+      + String(today.getDate()).padStart(2,'0');
+
+    function initFlatpickr() {
+      var cfg = {
+        locale: (flatpickr.l10ns && flatpickr.l10ns.it) ? 'it' : 'default',
+        dateFormat: 'd/m/Y',
+        minDate: today,
+        disableMobile: true,
+        disable: [function(date) {
+          var d = date.getDay();
+          return d === 0 || d === 5 || d === 6;
+        }],
+        onChange: function(selectedDates, dateStr, instance) {
+          var inp = instance.input;
+          inp.classList.remove('invalid');
+          var err = document.querySelector('[data-error-for="' + inp.id + '"]');
+          if (err) err.classList.remove('visible');
+        }
+      };
+      ['data', 'data-2'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) flatpickr(el, cfg);
+      });
+    }
+
+    function initNative() {
+      ['data', 'data-2'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.type = 'date';
+        el.min = todayStr;
+        el.removeAttribute('readonly');
+        el.placeholder = '';
+        el.addEventListener('change', function() {
+          if (!this.value) return;
+          var d = new Date(this.value + 'T12:00:00');
+          var day = d.getDay();
+          if (day === 0 || day === 5 || day === 6) {
+            this.value = '';
+            var err = document.querySelector('[data-error-for="' + id + '"]');
+            if (err) err.classList.add('visible');
+            this.classList.add('invalid');
+          }
+        });
+      });
+    }
+
     if (typeof flatpickr !== 'undefined') {
-      flatpickr('#data',   cfg);
-      flatpickr('#data-2', cfg);
+      initFlatpickr();
+    } else {
+      initNative();
     }
   })();
 
@@ -1215,7 +1249,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      var _hp = form.querySelector('[name="website"]');
+      var _hp = form.querySelector('[name="contact_time"]');
       if (_hp && _hp.value.trim().length > 0) {
         form.innerHTML = '<div class="form-success"><div class="check">&#10003;</div><div class="ok-title">' + successTitle + '</div><div class="ok-text">' + successText + '</div></div>';
         form.scrollIntoView({behavior:'smooth', block:'center'});
@@ -1237,8 +1271,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         if (firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
         return;
       }
+      var btn = form.querySelector('.form-submit');
+      var btnTxt = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso...'; }
       var _eid = Math.random().toString(36).slice(2) + Date.now().toString(36);
-      // TODO CAPI: leggi event_id dal POST body e invia server-side Lead event (stessa eventID per deduplication)
       try {
         var _p = new URLSearchParams();
         fieldIds.forEach(function(_fId) {
@@ -1248,7 +1284,10 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         _p.append('locale', locale);
         _p.append('event_id', _eid);
         fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: _p });
-      } catch (_err) {}
+      } catch (_err) {
+        if (btn) { btn.disabled = false; btn.textContent = btnTxt; }
+        return;
+      }
       if (typeof fbq === 'function') { fbq('track', 'Lead', {}, {eventID: _eid}); }
       form.innerHTML = '<div class="form-success">'
         + '<div class="check">&#10003;</div>'
