@@ -30,6 +30,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
   :root {
@@ -735,6 +736,55 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     letter-spacing: 0.02em;
   }
   .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; pointer-events: none; }
+
+  /* ── Flatpickr: tema Olltre ── */
+  .flatpickr-calendar {
+    background: var(--bg-2) !important;
+    border: 1px solid var(--gold-deep) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6) !important;
+    font-family: var(--font-body);
+    color: var(--cream);
+  }
+  .flatpickr-months, .flatpickr-month { background: var(--bg-2) !important; }
+  .flatpickr-current-month, .flatpickr-current-month input.cur-year,
+  .flatpickr-current-month .flatpickr-monthDropdown-months {
+    color: var(--cream) !important; background: transparent !important;
+    font-family: var(--font-body); font-weight: 300;
+  }
+  .flatpickr-monthDropdown-months option { background: var(--bg-2); }
+  span.flatpickr-weekday { background: var(--bg-2) !important; color: var(--gold) !important; font-weight: 500; }
+  .flatpickr-innerContainer { background: var(--bg-2); }
+  .flatpickr-days { border-color: var(--gold-deep) !important; }
+  .flatpickr-day {
+    color: var(--cream-dim);
+    border-radius: 2px !important;
+    border-color: transparent !important;
+  }
+  .flatpickr-day:hover:not(.flatpickr-disabled):not(.selected) {
+    background: var(--bg-3) !important;
+    border-color: var(--gold) !important;
+    color: var(--cream) !important;
+  }
+  .flatpickr-day.selected, .flatpickr-day.selected:hover {
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: var(--bg) !important;
+    font-weight: 500;
+  }
+  .flatpickr-day.today:not(.selected) { border-color: var(--gold-deep) !important; }
+  .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover {
+    color: rgba(244,233,200,0.18) !important;
+    background: transparent !important;
+    cursor: not-allowed;
+  }
+  .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: var(--gold) !important; }
+  .flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: var(--cream) !important; }
+  .numInputWrapper span { border-color: var(--gold-deep) !important; }
+  .numInputWrapper span:after { border-top-color: var(--gold) !important; border-bottom-color: var(--gold) !important; }
+  .numInput { color: var(--cream) !important; background: transparent !important; }
+  .flatpickr-input { cursor: pointer; }
+  .flatpickr-input[readonly] { cursor: pointer; }
   .trust-cta {
     display: inline-block;
     background: var(--gold);
@@ -893,7 +943,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       <div class="form-group">
         <label class="form-label" for="data-2">DATA</label>
         <div class="form-hint">Disponibile lun–gio, solo a pranzo</div>
-        <input class="form-input" type="date" id="data-2" name="data" required />
+        <input class="form-input" type="text" id="data-2" name="data" placeholder="Seleziona una data" readonly required />
         <div class="form-error" data-error-for="data-2">Seleziona un giorno disponibile (lun–gio)</div>
       </div>
       <div class="form-group">
@@ -1030,7 +1080,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       <div class="form-group">
         <label class="form-label" for="data">DATA</label>
         <div class="form-hint">Disponibile lun–gio, solo a pranzo</div>
-        <input class="form-input" type="date" id="data" name="data" required />
+        <input class="form-input" type="text" id="data" name="data" placeholder="Seleziona una data" readonly required />
         <div class="form-error" data-error-for="data">Seleziona un giorno disponibile (lun–gio)</div>
       </div>
 
@@ -1101,6 +1151,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
   <div class="footer-copy">&copy; 2026 Olltre &middot; Via Porta San Zeno 33, Verona</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/it.js"></script>
 <script>
   /* Nav scroll state */
   (function() {
@@ -1121,25 +1173,31 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     obs.observe(footer);
   })();
 
-  /* Date input: set min=oggi, rifiuta giorni disabled */
-  function _initDate(id, disabled) {
-    var inp = document.getElementById(id);
-    if (!inp) return;
-    var t = new Date();
-    inp.min = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
-    inp.addEventListener('change', function() {
-      if (!this.value) return;
-      var d = new Date(this.value + 'T12:00:00');
-      if (disabled.indexOf(d.getDay()) !== -1) {
-        this.value = '';
-        var err = document.querySelector('[data-error-for="' + id + '"]');
-        if (err) err.classList.add('visible');
-        this.classList.add('invalid');
+  /* Date picker: Flatpickr, solo lun-gio, min=oggi */
+  (function() {
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var cfg = {
+      locale: 'it',
+      dateFormat: 'd/m/Y',
+      minDate: today,
+      disableMobile: false,
+      disable: [function(date) {
+        var d = date.getDay();
+        return d === 0 || d === 5 || d === 6; // dom, ven, sab
+      }],
+      onChange: function(selectedDates, dateStr, instance) {
+        var inp = instance.input;
+        inp.classList.remove('invalid');
+        var err = document.querySelector('[data-error-for="' + inp.id + '"]');
+        if (err) err.classList.remove('visible');
       }
-    });
-  }
-  _initDate('data',   [0, 5, 6]);
-  _initDate('data-2', [0, 5, 6]);
+    };
+    if (typeof flatpickr !== 'undefined') {
+      flatpickr('#data',   cfg);
+      flatpickr('#data-2', cfg);
+    }
+  })();
 
   /* Form validation + submission */
   function _initForm(formId, fieldIds, scriptUrl, locale, successTitle, successText) {
