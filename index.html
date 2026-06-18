@@ -861,7 +861,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     <div class="eyebrow">PRENOTAZIONE</div>
     <h2 class="h-section">Prenota il tuo <span class="script">tavolo</span>.</h2>
     <p class="booking-sub">Scegli data e ora, compila il form. Ti confermiamo in poche ore.</p>
-    <form class="form-card" id="bookingForm2" novalidate>
+    <form class="form-card" id="bookingForm2" novalidate autocomplete="off">
       <div class="form-group">
         <label class="form-label" for="nome-2">NOME</label>
         <input class="form-input" type="text" id="nome-2" name="nome" placeholder="Nome" required />
@@ -912,7 +912,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <textarea class="form-textarea" id="note-2" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
         <div class="form-error" data-error-for="note-2">Inserisci le tue note</div>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="hp" tabindex="-1" autocomplete="off" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -994,7 +994,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
     <h2 class="h-section">Prenota il tuo <span class="script">tavolo</span>.</h2>
     <p class="booking-sub">Scegli data e ora, compila il form. Ti confermiamo in poche ore.</p>
 
-    <form class="form-card" id="bookingForm" novalidate>
+    <form class="form-card" id="bookingForm" novalidate autocomplete="off">
       <div class="form-group">
         <label class="form-label" for="nome">NOME</label>
         <input class="form-input" type="text" id="nome" name="nome" placeholder="Nome" required />
@@ -1051,7 +1051,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <textarea class="form-textarea" id="note" name="note" placeholder="Note o richieste speciali" rows="2" required></textarea>
         <div class="form-error" data-error-for="note">Inserisci le tue note</div>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="hp" tabindex="-1" autocomplete="off" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1157,8 +1157,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      var _hp = form.querySelector('[name="hp"]');
-      if (_hp && _hp.value.length > 0) {
+      var _hp = form.querySelector('[name="website"]');
+      if (_hp && _hp.value.trim().length > 0) {
         form.innerHTML = '<div class="form-success"><div class="check">&#10003;</div><div class="ok-title">' + successTitle + '</div><div class="ok-text">' + successText + '</div></div>';
         form.scrollIntoView({behavior:'smooth', block:'center'});
         return;
@@ -1167,7 +1167,8 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
       fieldIds.forEach(function(fId) {
         var el = document.getElementById(fId);
         var v = (el ? el.value : '').trim();
-        var valid = v.length > 0;
+        var optional = el && el.name === 'note';
+        var valid = optional ? true : v.length > 0;
         if (el && el.type === 'tel')   valid = valid && validatePhone(v);
         if (el && el.type === 'email') valid = valid && validateEmail(v);
         showError(fId, !valid);
