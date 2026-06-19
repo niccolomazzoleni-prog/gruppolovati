@@ -1262,9 +1262,28 @@
         return;
       }
 
+      // var _p = new URLSearchParams();
+      ['nome','cognome','email','telefono','persone','data','ora','note'].forEach(function(_f){
+        var _el = document.getElementById(_f);
+        _p.append(_f, _el ? _el.value : '');
+      });
+      _p.append('locale', 'Osteria Agli Angeli');
+      try {
+        fetch('https://script.google.com/macros/s/AKfycbzViGBUrY8XA8gQiND3K7T_kmLn5HgcZm-GJMmMU6ajyVuNMKCxmtvVnw2qhAoOQS1M/exec', { method: 'POST', mode: 'no-cors', keepalive: true, body: _p });
+      } catch (_err) {}
+
+NON toccare le righe subito sotto (quelle con form.innerHTML = ... e "Prenotazione ricevuta"): restano com'è.
+In alto a destra clicca "Commit changes...". Lascia selezionato "Commit directly to the main branch" e conferma con "Commit changes".
+
+Fatto questo, dimmi "fatto" e testo subito: prenotazione reale, riga nel foglio, notifica, mail cliente, contatto Brevo. Poi rinomino il progetto.Hai detto: dammi il link plzdammi il link plzClaude ha risposto: Ecco il link diretto alla modifica del file:Processo di ragionamentoProcesso di ragionamentoEcco il link diretto alla modifica del file:
+https://github.com/niccolomazzoleni-prog/gruppolovati/edit/main/agliangeli/index.html
+Apri, fai la sostituzione del blocco TODO come ti ho scritto, e committa su main. Poi dimmi "fatto" e testo tutto.Hai detto: ci sono diversi todo.ci sono diversi todo... controlla tu claudioneClaude ha risposto: Hai ragione, ce ne sono tre.Processo di ragionamentoProcesso di ragionamentoHai ragione, ce ne sono tre. Due sono commenti HTML nel footer (link TheFork e Google Maps): NON toccarli.
+Quello giusto è dentro lo <script>, nella funzione di invio del form. Per trovarlo al colpo cerca con Cmd+F una parola unica: vera POST (oppure /api/booking). Ti porta esattamente qui:
       // TODO: sostituire con vera POST al backend
       // const data = new FormData(form);
       // fetch('/api/booking', { method: 'POST', body: data })...
+Sono queste 3 righe (cominciano con //) da cancellare e sostituire col blocco var _p = new URLSearchParams()... che ti ho dato. Gli altri due TODO del footer lasciali stare.
+Fatta la sostituzione, committa su main e dimmi "fatto".
 
       form.innerHTML = ''
         + '<div class="form-success">'
