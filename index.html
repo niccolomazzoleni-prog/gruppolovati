@@ -961,7 +961,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <label class="form-label" for="note-2">NOTE <span style="font-weight:400;opacity:.55;font-size:.78rem;">(facoltativo)</span></label>
         <textarea class="form-textarea" id="note-2" name="note" placeholder="Allergie, seggiolino, altro…" rows="2"></textarea>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="fascia_oraria_pref" tabindex="-1" autocomplete="off" aria-hidden="true" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1099,7 +1099,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
         <label class="form-label" for="note">NOTE <span style="font-weight:400;opacity:.55;font-size:.78rem;">(facoltativo)</span></label>
         <textarea class="form-textarea" id="note" name="note" placeholder="Allergie, seggiolino, altro…" rows="2"></textarea>
       </div>
-      <div class="hp-field" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" /></div>
+      <div class="hp-field" aria-hidden="true"><input type="text" name="fascia_oraria_pref" tabindex="-1" autocomplete="off" aria-hidden="true" /></div>
       <button type="submit" class="form-submit">CONFERMA PRENOTAZIONE</button>
     </form>
   </div>
@@ -1247,7 +1247,7 @@ src="https://www.facebook.com/tr?id=2536690660094162&ev=PageView&noscript=1"
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      var _hp = form.querySelector('[name="website"]');
+      var _hp = form.querySelector('[name="fascia_oraria_pref"]');
       if (_hp && _hp.value.trim().length > 0) {
         window.location.replace('grazie.html');
         return;
